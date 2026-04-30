@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Revisão de Física</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: #05070f;
+      color: #edf0f7;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(76, 110, 245, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(76, 110, 245, 0.07) 1px, transparent 1px);
+      background-size: 54px 54px;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 82% 6%, rgba(76, 110, 245, 0.24), transparent 30%),
+        radial-gradient(circle at 8% 20%, rgba(232, 255, 71, 0.08), transparent 24%);
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 26px 18px 52px;
+    }
+
+    header {
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(12, 15, 29, 0.98), rgba(19, 23, 41, 0.94));
+      border: 1px solid #1e2340;
+      border-radius: 8px;
+      padding: 34px;
+      margin-bottom: 16px;
+      box-shadow: 0 20px 55px rgba(0, 0, 0, 0.38);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #3b5bdb, #e8ff47, transparent);
+    }
+
+    header::after {
+      content: "Física";
+      position: absolute;
+      right: 28px;
+      bottom: 18px;
+      color: rgba(255, 255, 255, 0.04);
+      font-size: 96px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      max-width: 680px;
+      font-size: clamp(36px, 7vw, 66px);
+      line-height: 1.02;
+      letter-spacing: -2px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    h1::before {
+      content: "Banco de estudo";
+      display: block;
+      margin-bottom: 14px;
+      font-size: 12px;
+      line-height: 1;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #e8ff47;
+    }
+
+    header p {
+      margin: 0;
+      max-width: 560px;
+      color: #a6accb;
+      font-size: 17px;
+    }
+
+    nav {
+      background: rgba(5, 7, 15, 0.84);
+      border: 1px solid #1e2340;
+      border-radius: 8px;
+      padding: 9px;
+      margin-bottom: 24px;
+      position: sticky;
+      top: 10px;
+      z-index: 5;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    nav a {
+      display: inline-block;
+      color: #9da5ca;
+      text-decoration: none;
+      padding: 9px 13px;
+      margin: 3px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #ffffff;
+      background: rgba(59, 91, 219, 0.18);
+      border-color: rgba(76, 110, 245, 0.35);
+    }
+
+    section {
+      background: rgba(12, 15, 29, 0.96);
+      border: 1px solid #1e2340;
+      border-radius: 8px;
+      margin-bottom: 28px;
+      padding: 26px;
+      scroll-margin-top: 92px;
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.26);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      color: #ffffff;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.12;
+      letter-spacing: -1px;
+      font-weight: 800;
+    }
+
+    h2::after {
+      content: "";
+      display: block;
+      width: 70px;
+      height: 3px;
+      margin-top: 12px;
+      background: linear-gradient(90deg, #3b5bdb, #e8ff47);
+      border-radius: 999px;
+    }
+
+    h3 {
+      margin: 24px 0 12px;
+      color: #dfe4f6;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .formula-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 8px 16px;
+      background: #131729;
+      border: 1px solid #2d3360;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+
+    .formula-box p {
+      margin: 0;
+      color: #c9cfe6;
+      font-size: 14px;
+    }
+
+    .formula-box p:first-child {
+      grid-column: 1 / -1;
+      color: #e8ff47;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .question-card {
+      background: #0f1324;
+      border: 1px solid #1e2340;
+      border-radius: 8px;
+      margin: 12px 0;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+    }
+
+    .question-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #3b5bdb;
+    }
+
+    .question-card:nth-of-type(3n)::before {
+      background: #e8ff47;
+    }
+
+    .question-card:nth-of-type(3n + 1)::before {
+      background: #4c6ef5;
+    }
+
+    .question-card:hover {
+      background: #131729;
+      border-color: #2d3360;
+      transform: translateY(-2px);
+    }
+
+    .question-card strong {
+      display: block;
+      margin-bottom: 10px;
+      padding-left: 4px;
+      color: #f8f9ff;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .question-card p {
+      margin: 7px 0;
+    }
+
+    button {
+      margin-top: 8px;
+      border: 1px solid #2d3360;
+      border-radius: 999px;
+      background: transparent;
+      color: #eef0f8;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: Arial, Helvetica, sans-serif;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #e8ff47;
+      border-color: #e8ff47;
+      color: #05070f;
+      transform: translateY(-1px);
+    }
+
+    .answer {
+      display: none;
+      margin-top: 13px;
+      padding: 13px 14px;
+      background: rgba(5, 7, 15, 0.72);
+      border: 1px solid #1e2340;
+      border-left: 4px solid #e8ff47;
+      border-radius: 6px;
+      color: #c9cfe6;
+    }
+
+    .answer p {
+      margin: 6px 0;
+    }
+
+    .answer .final {
+      color: #ffffff;
+      font-weight: 800;
+    }
+
+    footer {
+      margin-top: 32px;
+      padding: 24px;
+      background: rgba(12, 15, 29, 0.96);
+      border: 1px solid #1e2340;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.22);
+    }
+
+    footer p {
+      margin: 0 0 14px;
+      color: #9da5ca;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      display: inline-block;
+      color: #05070f;
+      background: #e8ff47;
+      border: 1px solid #e8ff47;
+      border-radius: 999px;
+      padding: 10px 16px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 800;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-links a:nth-child(2) {
+      color: #eef0f8;
+      background: transparent;
+      border-color: #2d3360;
+    }
+
+    .footer-links a:hover {
+      transform: translateY(-2px);
+      background: #c8df2f;
+      border-color: #c8df2f;
+      color: #05070f;
+    }
+
+    ::selection {
+      background: #e8ff47;
+      color: #05070f;
+    }
+
+    @media (max-width: 760px) {
+      .page {
+        padding: 14px 10px 34px;
+      }
+
+      header {
+        min-height: 220px;
+        padding: 24px 18px;
+      }
+
+      header::after {
+        font-size: 58px;
+        right: 14px;
+        bottom: 12px;
+      }
+
+      nav {
+        position: static;
+      }
+
+      nav a {
+        display: block;
+        margin: 5px 0;
+        text-align: center;
+      }
+
+      section {
+        padding: 18px 12px;
+      }
+
+      .formula-box {
+        grid-template-columns: 1fr;
+      }
+
+      .question-card {
+        padding: 14px 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Revisão de Física</h1>
+      <p>Lista de exercícios para revisar o conteúdo da prova.</p>
+    </header>
+
+    <nav aria-label="Menu de matérias">
+      <a href="#massa-mola">Sistema massa-mola</a>
+      <a href="#pendulo">Pêndulo simples</a>
+      <a href="#ondas">Ondas</a>
+      <a href="#fenomenos">Fenômenos ondulatórios</a>
+    </nav>
+
+    <main>
+      <section id="massa-mola">
+        <h2>Sistema massa-mola</h2>
+        <div class="formula-box">
+          <p><strong>Fórmulas importantes</strong></p>
+          <p>F = k . x</p>
+          <p>Ep = k . x² / 2</p>
+          <p>T = 2π . √(m / k)</p>
+          <p>f = 1 / T</p>
+          <p>Use π = 3 quando for necessário.</p>
+        </div>
+
+        <div class="question-card">
+          <strong>1. Uma mola de constante elástica 200 N/m é comprimida 0,10 m. Qual é a força elástica?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 20 N</p>
+            <p>F = k . x</p>
+            <p>F = 200 . 1/10</p>
+            <p>F = 20 N</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>2. Uma mola sofre alongamento de 0,20 m quando recebe força de 40 N. Qual é a constante elástica?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 200 N/m</p>
+            <p>F = k . x</p>
+            <p>40 = k . 1/5</p>
+            <p>k = 40 . 5</p>
+            <p>k = 200 N/m</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>3. Uma mola de constante 100 N/m é deformada 0,40 m. Qual energia potencial elástica fica armazenada?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 8 J</p>
+            <p>Ep = k . x² / 2</p>
+            <p>Ep = 100 . (2/5)² / 2</p>
+            <p>Ep = 100 . 4/25 / 2</p>
+            <p>Ep = 16 / 2 = 8 J</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>4. Um bloco de 1 kg preso a uma mola de 9 N/m oscila. Usando π = 3, calcule o período.</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 2 s</p>
+            <p>T = 2π . √(m / k)</p>
+            <p>T = 2 . 3 . √(1 / 9)</p>
+            <p>T = 6 . 1/3</p>
+            <p>T = 2 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>5. Um sistema massa-mola tem período de 4 s. Qual é a frequência?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 0,25 Hz</p>
+            <p>f = 1 / T</p>
+            <p>f = 1 / 4</p>
+            <p>f = 1/4 Hz</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>6. Uma mola de 50 N/m armazena 4 J de energia. Qual é a deformação?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 0,40 m</p>
+            <p>Ep = k . x² / 2</p>
+            <p>4 = 50 . x² / 2</p>
+            <p>4 = 25 . x²</p>
+            <p>x² = 4 / 25</p>
+            <p>x = 2/5 m</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>7. Uma mola de 16 N/m está presa a uma massa de 4 kg. Usando π = 3, calcule o período.</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 3 s</p>
+            <p>T = 2π . √(m / k)</p>
+            <p>T = 2 . 3 . √(4 / 16)</p>
+            <p>T = 6 . √(1 / 4)</p>
+            <p>T = 6 . 1/2 = 3 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>8. Uma mola se alonga 0,30 m quando a força aplicada é 60 N. Qual força causaria alongamento de 0,10 m nessa mesma mola?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 20 N</p>
+            <p>Primeiro: F = k . x</p>
+            <p>60 = k . 3/10</p>
+            <p>k = 200 N/m</p>
+            <p>Depois: F = 200 . 1/10</p>
+            <p>F = 20 N</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>9. Um oscilador massa-mola completa 5 oscilações em 20 s. Qual é sua frequência?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 0,25 Hz</p>
+            <p>f = número de oscilações / tempo</p>
+            <p>f = 5 / 20</p>
+            <p>f = 1/4 Hz</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pendulo">
+        <h2>Pêndulo simples</h2>
+        <div class="formula-box">
+          <p><strong>Fórmulas importantes</strong></p>
+          <p>T = 2π . √(L / g)</p>
+          <p>f = 1 / T</p>
+          <p>g = 10 m/s²</p>
+          <p>Use π = 3 quando for necessário.</p>
+        </div>
+
+        <div class="question-card">
+          <strong>10. Um pêndulo tem comprimento 10 m. Usando g = 10 m/s² e π = 3, calcule o período.</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 6 s</p>
+            <p>T = 2π . √(L / g)</p>
+            <p>T = 2 . 3 . √(10 / 10)</p>
+            <p>T = 6 . 1</p>
+            <p>T = 6 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>11. Um pêndulo tem comprimento 2,5 m. Usando g = 10 m/s² e π = 3, calcule o período.</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 3 s</p>
+            <p>T = 2π . √(L / g)</p>
+            <p>T = 2 . 3 . √(1 / 4)</p>
+            <p>T = 6 . √(1 / 4)</p>
+            <p>T = 6 . 1/2 = 3 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>12. Um pêndulo tem período de 2 s. Qual é a frequência?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 0,50 Hz</p>
+            <p>f = 1 / T</p>
+            <p>f = 1 / 2</p>
+            <p>f = 1/2 Hz</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>13. Um pêndulo realiza 12 oscilações em 36 s. Qual é o período?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 3 s</p>
+            <p>T = tempo total / número de oscilações</p>
+            <p>T = 36 / 12</p>
+            <p>T = 3 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>14. Um pêndulo tem período de 6 s. Usando g = 10 m/s² e π = 3, determine o comprimento.</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 10 m</p>
+            <p>T = 2π . √(L / g)</p>
+            <p>6 = 6 . √(L / 10)</p>
+            <p>1 = √(L / 10)</p>
+            <p>1 = L / 10</p>
+            <p>L = 10 m</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>15. Um pêndulo tem comprimento 40 m. Usando g = 10 m/s² e π = 3, calcule o período.</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 12 s</p>
+            <p>T = 2π . √(L / g)</p>
+            <p>T = 2 . 3 . √(40 / 10)</p>
+            <p>T = 6 . √4</p>
+            <p>T = 6 . 2 = 12 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>16. Dois pêndulos têm comprimentos 10 m e 40 m. Quantas vezes o período do segundo é maior?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 2 vezes</p>
+            <p>O período depende de √L.</p>
+            <p>Razão = √(40 / 10)</p>
+            <p>Razão = √4</p>
+            <p>Razão = 2</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ondas">
+        <h2>Ondas</h2>
+        <div class="formula-box">
+          <p><strong>Fórmulas importantes</strong></p>
+          <p>v = λ . f</p>
+          <p>T = 1 / f</p>
+          <p>f = número de oscilações / tempo</p>
+          <p>λ = v / f</p>
+        </div>
+
+        <div class="question-card">
+          <strong>17. Uma onda tem comprimento de onda 4 m e frequência 5 Hz. Qual é sua velocidade?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 20 m/s</p>
+            <p>v = λ . f</p>
+            <p>v = 4 . 5</p>
+            <p>v = 20 m/s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>18. Uma onda se propaga a 30 m/s e tem frequência 10 Hz. Qual é o comprimento de onda?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 3 m</p>
+            <p>λ = v / f</p>
+            <p>λ = 30 / 10</p>
+            <p>λ = 3 m</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>19. Uma fonte produz 8 oscilações em 4 s. Qual é a frequência?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 2 Hz</p>
+            <p>f = número de oscilações / tempo</p>
+            <p>f = 8 / 4</p>
+            <p>f = 2 Hz</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>20. Uma onda tem frequência 4 Hz. Qual é o período?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 0,25 s</p>
+            <p>T = 1 / f</p>
+            <p>T = 1 / 4</p>
+            <p>T = 1/4 s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>21. Uma onda percorre 120 m em 6 s. Qual é sua velocidade?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 20 m/s</p>
+            <p>v = distância / tempo</p>
+            <p>v = 120 / 6</p>
+            <p>v = 20 m/s</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>22. Uma onda tem velocidade 24 m/s e comprimento de onda 6 m. Qual é sua frequência?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 4 Hz</p>
+            <p>v = λ . f</p>
+            <p>24 = 6 . f</p>
+            <p>f = 24 / 6</p>
+            <p>f = 4 Hz</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>23. Uma onda tem período de 0,50 s e comprimento de onda 10 m. Qual é sua velocidade?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 20 m/s</p>
+            <p>f = 1 / T</p>
+            <p>f = 1 / (1/2) = 2 Hz</p>
+            <p>v = λ . f</p>
+            <p>v = 10 . 2 = 20 m/s</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="fenomenos">
+        <h2>Fenômenos ondulatórios</h2>
+        <div class="formula-box">
+          <p><strong>Fórmulas importantes</strong></p>
+          <p>Reflexão: o ângulo de incidência é igual ao ângulo de reflexão.</p>
+          <p>Refração: n₁ . sen i = n₂ . sen r</p>
+          <p>Eco: d = v . t / 2</p>
+          <p>Interferência em fase: amplitude resultante = A₁ + A₂</p>
+        </div>
+
+        <div class="question-card">
+          <strong>24. Um raio incide em um espelho plano com ângulo de 35°. Qual é o ângulo de reflexão?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 35°</p>
+            <p>Na reflexão, o ângulo de incidência é igual ao de reflexão.</p>
+            <p>r = i</p>
+            <p>r = 35°</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>25. Um som viaja a 340 m/s e o eco é ouvido 2 s depois. Qual é a distância até o obstáculo?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 340 m</p>
+            <p>d = v . t / 2</p>
+            <p>d = 340 . 2 / 2</p>
+            <p>d = 340 m</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>26. Dois pulsos em fase têm amplitudes 4 cm e 6 cm. Qual é a amplitude resultante na interferência construtiva?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 10 cm</p>
+            <p>Na interferência construtiva, as amplitudes se somam.</p>
+            <p>A = 4 + 6</p>
+            <p>A = 10 cm</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>27. Dois pulsos opostos têm amplitudes 9 cm e 5 cm. Qual é a amplitude resultante?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 4 cm</p>
+            <p>Na interferência destrutiva, subtraímos as amplitudes.</p>
+            <p>A = 9 - 5</p>
+            <p>A = 4 cm</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>28. Em uma refração, n₁ = 1, sen i = 1, n₂ = 2. Qual é o valor de sen r?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 0,50</p>
+            <p>n₁ . sen i = n₂ . sen r</p>
+            <p>1 . 1 = 2 . sen r</p>
+            <p>sen r = 1 / 2</p>
+            <p>sen r = 1/2</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>29. Um eco é ouvido após 4 s. A velocidade do som é 300 m/s. Qual é a distância até a parede?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 600 m</p>
+            <p>d = v . t / 2</p>
+            <p>d = 300 . 4 / 2</p>
+            <p>d = 1200 / 2</p>
+            <p>d = 600 m</p>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <strong>30. Um raio passa do meio 1 para o meio 2. Sabe-se que n₁ = 2, sen i = 0,50 e n₂ = 1. Qual é o valor de sen r?</strong>
+          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
+          <div class="answer">
+            <p class="final">Resposta: 1</p>
+            <p>n₁ . sen i = n₂ . sen r</p>
+            <p>2 . 1/2 = 1 . sen r</p>
+            <p>1 = sen r</p>
+            <p>sen r = 1</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Outros sites</p>
+      <div class="footer-links">
+        <a href="https://atlaswebsite.github.io/AtlasVitrine/" target="_blank" rel="noopener noreferrer">Atlas Vitrine</a>
+        <a href="https://atlaswebsite.github.io/Atlasweb/" target="_blank" rel="noopener noreferrer">Atlas Web</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleAnswer(button) {
+      var answer = button.nextElementSibling;
+      var showing = answer.style.display === "block";
+      answer.style.display = showing ? "none" : "block";
+      button.textContent = showing ? "Mostrar resposta" : "Esconder resposta";
+    }
+  </script>
+</body>
+</html>
