@@ -184,7 +184,13 @@
       text-transform: uppercase;
     }
 
-    .formula-box {
+    p,
+    li {
+      color: #c9cfe6;
+    }
+
+    .formula-box,
+    .formulas {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 8px 16px;
@@ -195,13 +201,15 @@
       margin-bottom: 20px;
     }
 
-    .formula-box p {
+    .formula-box p,
+    .formulas p {
       margin: 0;
       color: #c9cfe6;
       font-size: 14px;
     }
 
-    .formula-box p:first-child {
+    .formula-box p:first-child,
+    .formulas p:first-child {
       grid-column: 1 / -1;
       color: #e8ff47;
       font-size: 13px;
@@ -209,12 +217,13 @@
       text-transform: uppercase;
     }
 
-    .formula-box p:nth-child(n + 7) {
-      color: #9da5ca;
-      font-size: 13px;
+    .formula {
+      font-weight: 700;
+      color: #ffffff !important;
     }
 
-    .question-card {
+    .question-card,
+    .exercise {
       background: #0f1324;
       border: 1px solid #1e2340;
       border-radius: 8px;
@@ -225,7 +234,8 @@
       transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
     }
 
-    .question-card::before {
+    .question-card::before,
+    .exercise::before {
       content: "";
       position: absolute;
       top: 0;
@@ -235,21 +245,25 @@
       background: #3b5bdb;
     }
 
-    .question-card:nth-of-type(3n)::before {
+    .question-card:nth-of-type(3n)::before,
+    .exercise:nth-of-type(3n)::before {
       background: #e8ff47;
     }
 
-    .question-card:nth-of-type(3n + 1)::before {
+    .question-card:nth-of-type(3n + 1)::before,
+    .exercise:nth-of-type(3n + 1)::before {
       background: #4c6ef5;
     }
 
-    .question-card:hover {
+    .question-card:hover,
+    .exercise:hover {
       background: #131729;
       border-color: #2d3360;
       transform: translateY(-2px);
     }
 
-    .question-card strong {
+    .question-card strong,
+    .exercise > p:first-child {
       display: block;
       margin-bottom: 10px;
       padding-left: 4px;
@@ -258,7 +272,8 @@
       font-weight: 700;
     }
 
-    .question-card p {
+    .question-card p,
+    .exercise p {
       margin: 7px 0;
     }
 
@@ -298,9 +313,30 @@
       margin: 6px 0;
     }
 
-    .answer .final {
+    .answer p:first-child {
       color: #ffffff;
       font-weight: 800;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 20px;
+      background: #131729;
+      border: 1px solid #2d3360;
+    }
+
+    th, td {
+      border: 1px solid #2d3360;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+      color: #c9cfe6;
+    }
+
+    th {
+      background: #0f1324;
+      color: #ffffff;
     }
 
     footer {
@@ -313,39 +349,39 @@
       box-shadow: 0 16px 44px rgba(0, 0, 0, 0.22);
     }
 
-    footer p {
+    footer h2 {
       margin: 0 0 14px;
       color: #9da5ca;
       font-size: 14px;
+      letter-spacing: 0;
+      text-transform: none;
     }
 
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    footer h2::after {
+      display: none;
     }
 
-    .footer-links a {
+    footer a {
       display: inline-block;
       color: #05070f;
       background: #e8ff47;
       border: 1px solid #e8ff47;
       border-radius: 999px;
       padding: 10px 16px;
+      margin: 6px;
       text-decoration: none;
       font-size: 14px;
       font-weight: 800;
       transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
     }
 
-    .footer-links a:nth-child(2) {
+    footer a:nth-of-type(2) {
       color: #eef0f8;
       background: transparent;
       border-color: #2d3360;
     }
 
-    .footer-links a:hover {
+    footer a:hover {
       transform: translateY(-2px);
       background: #c8df2f;
       border-color: #c8df2f;
@@ -387,11 +423,13 @@
         padding: 18px 12px;
       }
 
-      .formula-box {
+      .formula-box,
+      .formulas {
         grid-template-columns: 1fr;
       }
 
-      .question-card {
+      .question-card,
+      .exercise {
         padding: 14px 13px;
       }
     }
@@ -401,452 +439,784 @@
   <div class="page">
     <header>
       <h1>Revisão de Física</h1>
-      <p>Lista de exercícios para revisar o conteúdo da prova.</p>
+      <p>Resumo, fórmulas e exercícios para estudar o conteúdo da prova.</p>
     </header>
 
     <nav aria-label="Menu de matérias">
-      <a href="#massa-mola">Sistema massa-mola</a>
-      <a href="#pendulo">Pêndulo simples</a>
-      <a href="#ondas">Ondas</a>
-      <a href="#fenomenos">Fenômenos ondulatórios</a>
+      <a href="#difracao">Difração</a>
+      <a href="#interferencia">Interferência</a>
+      <a href="#ondas-sonoras">Ondas sonoras</a>
+      <a href="#cordas">Cordas vibrantes</a>
+      <a href="#carga-eletrica">Carga elétrica</a>
+      <a href="#condutores">Condutores e isolantes</a>
+      <a href="#eletrizacao">Processos de eletrização</a>
+      <a href="#eletroscopios">Eletroscópios</a>
+      <a href="#forca-eletrica">Força elétrica</a>
+      <a href="#resumo-final">Resumo final</a>
     </nav>
 
     <main>
-      <section id="massa-mola">
-        <h2>Sistema massa-mola</h2>
-        <div class="formula-box">
-          <p><strong>Fórmulas importantes</strong></p>
-          <p>F = k . x</p>
-          <p>Ep = k . x² / 2</p>
-          <p>T = 2π . √(m / k)</p>
-          <p>f = 1 / T</p>
-          <p>Use π = 3 quando for necessário.</p>
-          <p>F = força elástica</p>
-          <p>k = constante elástica da mola</p>
-          <p>x = deformação da mola</p>
-          <p>Ep = energia potencial elástica</p>
-          <p>T = período</p>
-          <p>m = massa</p>
-          <p>f = frequência</p>
-          <p>π = pi</p>
-        </div>
+    <section id="difracao">
+      <h2>Difração</h2>
+      <h3>Resumo rápido</h3>
+      <p>Difração é o fenômeno em que uma onda contorna obstáculos ou se espalha ao passar por uma abertura. Isso acontece com ondas na água, ondas sonoras e também com a luz.</p>
+      <p>Quando a onda encontra uma fenda, a abertura funciona como uma nova fonte de ondas. A difração fica mais evidente quando o comprimento de onda tem tamanho parecido com a abertura.</p>
+      <p>Um exemplo comum é ouvir uma pessoa falando do outro lado de uma porta aberta. O som passa pela abertura e se espalha pelo ambiente.</p>
 
-        <div class="question-card">
-          <strong>1. Uma mola de constante elástica 200 N/m é comprimida 0,10 m. Qual é a força elástica?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 20 N</p>
-            <p>F = k . x</p>
-            <p>F = 200 . 1/10</p>
-            <p>F = 20 N</p>
-          </div>
-        </div>
+      <h3>Fórmulas importantes</h3>
+      <div class="formulas">
+        <p>Não há uma fórmula principal obrigatória para os exercícios conceituais de difração neste nível.</p>
+        <p>A ideia mais importante é:</p>
+        <p class="formula">maior difração ocorre quando λ é parecido com o tamanho da abertura</p>
+        <p>λ = comprimento de onda.</p>
+      </div>
 
-        <div class="question-card">
-          <strong>2. Uma mola sofre alongamento de 0,20 m quando recebe força de 40 N. Qual é a constante elástica?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 200 N/m</p>
-            <p>F = k . x</p>
-            <p>40 = k . 1/5</p>
-            <p>k = 40 . 5</p>
-            <p>k = 200 N/m</p>
-          </div>
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>1.</strong> O que é difração?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> É a capacidade de uma onda contornar obstáculos ou se espalhar ao passar por uma abertura.</p>
+          <p>Passo 1: a onda chega ao obstáculo ou à fenda.</p>
+          <p>Passo 2: ela não segue apenas em linha reta.</p>
+          <p>Passo 3: ela se espalha ou contorna a região.</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>3. Uma mola de constante 100 N/m é deformada 0,40 m. Qual energia potencial elástica fica armazenada?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 8 J</p>
-            <p>Ep = k . x² / 2</p>
-            <p>Ep = 100 . (2/5)² / 2</p>
-            <p>Ep = 100 . 4/25 / 2</p>
-            <p>Ep = 16 / 2 = 8 J</p>
-          </div>
+      <div class="exercise">
+        <p><strong>2.</strong> A difração é maior quando a abertura é muito maior que o comprimento de onda ou quando é parecida com ele?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Quando a abertura é parecida com o comprimento de onda.</p>
+          <p>Passo 1: compare o tamanho da fenda com λ.</p>
+          <p>Passo 2: se forem parecidos, a onda se espalha bastante.</p>
+          <p>Passo 3: logo, a difração é maior.</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>4. Um bloco de 1 kg preso a uma mola de 9 N/m oscila. Usando π = 3, calcule o período.</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 2 s</p>
-            <p>T = 2π . √(m / k)</p>
-            <p>T = 2 . 3 . √(1 / 9)</p>
-            <p>T = 6 . 1/3</p>
-            <p>T = 2 s</p>
-          </div>
+      <div class="exercise">
+        <p><strong>3.</strong> Por que conseguimos ouvir alguém falando atrás de uma porta aberta?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Porque o som sofre difração.</p>
+          <p>Passo 1: o som chega à abertura da porta.</p>
+          <p>Passo 2: a onda sonora passa pela abertura.</p>
+          <p>Passo 3: ela se espalha pelo ambiente, chegando até quem escuta.</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>5. Um sistema massa-mola tem período de 4 s. Qual é a frequência?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 0,25 Hz</p>
-            <p>f = 1 / T</p>
-            <p>f = 1 / 4</p>
-            <p>f = 1/4 Hz</p>
-          </div>
+      <div class="exercise">
+        <p><strong>4.</strong> A luz também pode sofrer difração?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Sim.</p>
+          <p>Passo 1: a difração acontece com ondas.</p>
+          <p>Passo 2: a luz é uma onda eletromagnética.</p>
+          <p>Passo 3: portanto, a luz pode sofrer difração, principalmente em fendas muito pequenas.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="question-card">
-          <strong>6. Uma mola de 50 N/m armazena 4 J de energia. Qual é a deformação?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 0,40 m</p>
-            <p>Ep = k . x² / 2</p>
-            <p>4 = 50 . x² / 2</p>
-            <p>4 = 25 . x²</p>
-            <p>x² = 4 / 25</p>
-            <p>x = 2/5 m</p>
-          </div>
+    <section id="interferencia">
+      <h2>Interferência de ondas</h2>
+      <h3>Resumo rápido</h3>
+      <p>Interferência acontece quando duas ondas se encontram no mesmo ponto. Nesse encontro, as amplitudes podem se somar ou se reduzir.</p>
+      <p>Na interferência construtiva, crista encontra crista ou vale encontra vale. As amplitudes se somam.</p>
+      <p>Na interferência destrutiva, crista encontra vale. As amplitudes se subtraem.</p>
+
+      <h3>Fórmulas importantes</h3>
+      <div class="formulas">
+        <p class="formula">Interferência construtiva: A = A1 + A2</p>
+        <p class="formula">Interferência destrutiva: A = |A1 - A2|</p>
+        <p>A = amplitude resultante.</p>
+        <p>A1 = amplitude da primeira onda.</p>
+        <p>A2 = amplitude da segunda onda.</p>
+      </div>
+
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>5.</strong> Duas cristas têm amplitudes 3 cm e 4 cm. Qual é a amplitude resultante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 7 cm.</p>
+          <p>A = A1 + A2</p>
+          <p>A = 3 + 4</p>
+          <p>A = 7 cm</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>7. Uma mola de 16 N/m está presa a uma massa de 4 kg. Usando π = 3, calcule o período.</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 3 s</p>
-            <p>T = 2π . √(m / k)</p>
-            <p>T = 2 . 3 . √(4 / 16)</p>
-            <p>T = 6 . √(1 / 4)</p>
-            <p>T = 6 . 1/2 = 3 s</p>
-          </div>
+      <div class="exercise">
+        <p><strong>6.</strong> Uma crista de 8 cm encontra um vale de 5 cm. Qual é a amplitude resultante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 3 cm.</p>
+          <p>A = |A1 - A2|</p>
+          <p>A = |8 - 5|</p>
+          <p>A = 3 cm</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>8. Uma mola se alonga 0,30 m quando a força aplicada é 60 N. Qual força causaria alongamento de 0,10 m nessa mesma mola?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 20 N</p>
-            <p>Primeiro: F = k . x</p>
-            <p>60 = k . 3/10</p>
-            <p>k = 200 N/m</p>
-            <p>Depois: F = 200 . 1/10</p>
-            <p>F = 20 N</p>
-          </div>
+      <div class="exercise">
+        <p><strong>7.</strong> Duas ondas em fase têm amplitudes 6 cm e 2 cm. Qual é a amplitude resultante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 8 cm.</p>
+          <p>Ondas em fase sofrem interferência construtiva.</p>
+          <p>A = 6 + 2</p>
+          <p>A = 8 cm</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>9. Um oscilador massa-mola completa 5 oscilações em 20 s. Qual é sua frequência?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 0,25 Hz</p>
-            <p>f = número de oscilações / tempo</p>
-            <p>f = 5 / 20</p>
-            <p>f = 1/4 Hz</p>
-          </div>
+      <div class="exercise">
+        <p><strong>8.</strong> Uma crista de 10 cm encontra um vale de 10 cm. Qual é a amplitude resultante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 0 cm.</p>
+          <p>A = |A1 - A2|</p>
+          <p>A = |10 - 10|</p>
+          <p>A = 0 cm</p>
         </div>
-      </section>
+      </div>
 
-      <section id="pendulo">
-        <h2>Pêndulo simples</h2>
-        <div class="formula-box">
-          <p><strong>Fórmulas importantes</strong></p>
-          <p>T = 2π . √(L / g)</p>
-          <p>f = 1 / T</p>
-          <p>g = 10 m/s²</p>
-          <p>Use π = 3 quando for necessário.</p>
-          <p>T = período</p>
-          <p>L = comprimento do pêndulo</p>
-          <p>g = gravidade</p>
-          <p>f = frequência</p>
-          <p>π = pi</p>
+      <div class="exercise">
+        <p><strong>9.</strong> Duas ondas em oposição têm amplitudes 9 cm e 4 cm. Qual é a amplitude resultante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 5 cm.</p>
+          <p>A = |A1 - A2|</p>
+          <p>A = |9 - 4|</p>
+          <p>A = 5 cm</p>
         </div>
+      </div>
+    </section>
 
-        <div class="question-card">
-          <strong>10. Um pêndulo tem comprimento 10 m. Usando g = 10 m/s² e π = 3, calcule o período.</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 6 s</p>
-            <p>T = 2π . √(L / g)</p>
-            <p>T = 2 . 3 . √(10 / 10)</p>
-            <p>T = 6 . 1</p>
-            <p>T = 6 s</p>
-          </div>
-        </div>
+    <section id="ondas-sonoras">
+      <h2>Ondas sonoras e propriedades das ondas</h2>
+      <h3>Resumo rápido</h3>
+      <p>Som é uma onda mecânica. Isso significa que ele precisa de um meio material para se propagar, como ar, água ou metal.</p>
+      <p>Frequência é o número de vibrações por segundo. Período é o intervalo de uma vibração completa. Comprimento de onda é a distância entre dois pontos equivalentes da onda. Amplitude está ligada à intensidade.</p>
+      <p>Altura diferencia som grave e som agudo. Som grave tem menor frequência. Som agudo tem maior frequência. Intensidade diferencia som forte e som fraco. Timbre diferencia fontes sonoras, como violão e piano tocando a mesma nota.</p>
 
-        <div class="question-card">
-          <strong>11. Um pêndulo tem comprimento 2,5 m. Usando g = 10 m/s² e π = 3, calcule o período.</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 3 s</p>
-            <p>T = 2π . √(L / g)</p>
-            <p>T = 2 . 3 . √(1 / 4)</p>
-            <p>T = 6 . √(1 / 4)</p>
-            <p>T = 6 . 1/2 = 3 s</p>
-          </div>
-        </div>
+      <h3>Fórmulas importantes</h3>
+      <div class="formulas">
+        <p class="formula">v = λ . f</p>
+        <p class="formula">T = 1 / f</p>
+        <p class="formula">f = 1 / T</p>
+        <p class="formula">v = distância / tempo</p>
+        <p>v = velocidade da onda.</p>
+        <p>λ = comprimento de onda.</p>
+        <p>f = frequência.</p>
+        <p>T = período.</p>
+      </div>
 
-        <div class="question-card">
-          <strong>12. Um pêndulo tem período de 2 s. Qual é a frequência?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 0,50 Hz</p>
-            <p>f = 1 / T</p>
-            <p>f = 1 / 2</p>
-            <p>f = 1/2 Hz</p>
-          </div>
-        </div>
-
-        <div class="question-card">
-          <strong>13. Um pêndulo realiza 12 oscilações em 36 s. Qual é o período?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 3 s</p>
-            <p>T = tempo total / número de oscilações</p>
-            <p>T = 36 / 12</p>
-            <p>T = 3 s</p>
-          </div>
-        </div>
-
-        <div class="question-card">
-          <strong>14. Um pêndulo tem período de 6 s. Usando g = 10 m/s² e π = 3, determine o comprimento.</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 10 m</p>
-            <p>T = 2π . √(L / g)</p>
-            <p>6 = 6 . √(L / 10)</p>
-            <p>1 = √(L / 10)</p>
-            <p>1 = L / 10</p>
-            <p>L = 10 m</p>
-          </div>
-        </div>
-
-        <div class="question-card">
-          <strong>15. Um pêndulo tem comprimento 40 m. Usando g = 10 m/s² e π = 3, calcule o período.</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 12 s</p>
-            <p>T = 2π . √(L / g)</p>
-            <p>T = 2 . 3 . √(40 / 10)</p>
-            <p>T = 6 . √4</p>
-            <p>T = 6 . 2 = 12 s</p>
-          </div>
-        </div>
-
-        <div class="question-card">
-          <strong>16. Dois pêndulos têm comprimentos 10 m e 40 m. Quantas vezes o período do segundo é maior?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 2 vezes</p>
-            <p>O período depende de √L.</p>
-            <p>Razão = √(40 / 10)</p>
-            <p>Razão = √4</p>
-            <p>Razão = 2</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="ondas">
-        <h2>Ondas</h2>
-        <div class="formula-box">
-          <p><strong>Fórmulas importantes</strong></p>
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>10.</strong> Uma onda tem comprimento de onda 4 m e frequência 5 Hz. Qual é sua velocidade?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 20 m/s.</p>
           <p>v = λ . f</p>
+          <p>v = 4 . 5</p>
+          <p>v = 20 m/s</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>11.</strong> Uma onda tem velocidade 30 m/s e frequência 10 Hz. Qual é o comprimento de onda?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 3 m.</p>
+          <p>v = λ . f</p>
+          <p>30 = λ . 10</p>
+          <p>λ = 30 / 10</p>
+          <p>λ = 3 m</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>12.</strong> Uma onda tem frequência 4 Hz. Qual é o período?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 0,25 s.</p>
           <p>T = 1 / f</p>
-          <p>f = número de oscilações / tempo</p>
-          <p>λ = v / f</p>
-          <p>v = velocidade da onda</p>
-          <p>λ = comprimento de onda</p>
-          <p>f = frequência</p>
-          <p>T = período</p>
+          <p>T = 1 / 4</p>
+          <p>T = 0,25 s</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>17. Uma onda tem comprimento de onda 4 m e frequência 5 Hz. Qual é sua velocidade?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 20 m/s</p>
-            <p>v = λ . f</p>
-            <p>v = 4 . 5</p>
-            <p>v = 20 m/s</p>
-          </div>
+      <div class="exercise">
+        <p><strong>13.</strong> Uma onda tem período 0,5 s. Qual é a frequência?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 2 Hz.</p>
+          <p>f = 1 / T</p>
+          <p>f = 1 / 0,5</p>
+          <p>f = 2 Hz</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>18. Uma onda se propaga a 30 m/s e tem frequência 10 Hz. Qual é o comprimento de onda?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 3 m</p>
-            <p>λ = v / f</p>
-            <p>λ = 30 / 10</p>
-            <p>λ = 3 m</p>
-          </div>
+      <div class="exercise">
+        <p><strong>14.</strong> Uma onda percorre 100 m em 5 s. Qual é sua velocidade?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 20 m/s.</p>
+          <p>v = distância / tempo</p>
+          <p>v = 100 / 5</p>
+          <p>v = 20 m/s</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>19. Uma fonte produz 8 oscilações em 4 s. Qual é a frequência?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 2 Hz</p>
-            <p>f = número de oscilações / tempo</p>
-            <p>f = 8 / 4</p>
-            <p>f = 2 Hz</p>
-          </div>
+      <div class="exercise">
+        <p><strong>15.</strong> Uma onda tem velocidade 24 m/s e comprimento de onda 6 m. Qual é sua frequência?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 4 Hz.</p>
+          <p>v = λ . f</p>
+          <p>24 = 6 . f</p>
+          <p>f = 24 / 6</p>
+          <p>f = 4 Hz</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>20. Uma onda tem frequência 4 Hz. Qual é o período?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 0,25 s</p>
-            <p>T = 1 / f</p>
-            <p>T = 1 / 4</p>
-            <p>T = 1/4 s</p>
-          </div>
+      <div class="exercise">
+        <p><strong>16.</strong> Qual som tem maior frequência: grave ou agudo?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Som agudo.</p>
+          <p>Passo 1: altura sonora está ligada à frequência.</p>
+          <p>Passo 2: som grave tem menor frequência.</p>
+          <p>Passo 3: som agudo tem maior frequência.</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>21. Uma onda percorre 120 m em 6 s. Qual é sua velocidade?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 20 m/s</p>
-            <p>v = distância / tempo</p>
-            <p>v = 120 / 6</p>
-            <p>v = 20 m/s</p>
-          </div>
+      <div class="exercise">
+        <p><strong>17.</strong> Som forte está relacionado à frequência ou à intensidade?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Intensidade.</p>
+          <p>Passo 1: frequência diferencia grave e agudo.</p>
+          <p>Passo 2: intensidade diferencia forte e fraco.</p>
+          <p>Passo 3: portanto, som forte tem maior intensidade.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="question-card">
-          <strong>22. Uma onda tem velocidade 24 m/s e comprimento de onda 6 m. Qual é sua frequência?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 4 Hz</p>
-            <p>v = λ . f</p>
-            <p>24 = 6 . f</p>
-            <p>f = 24 / 6</p>
-            <p>f = 4 Hz</p>
-          </div>
-        </div>
+    <section id="cordas">
+      <h2>Cordas vibrantes</h2>
+      <h3>Resumo rápido</h3>
+      <p>Cordas vibrantes aparecem em instrumentos como violão, guitarra, violino e piano. Quando uma corda vibra, ela pode formar ondas estacionárias.</p>
+      <p>Ondas estacionárias têm pontos que não vibram, chamados nós, e pontos de vibração máxima, chamados ventres. A frequência fundamental é o primeiro modo de vibração da corda. Os harmônicos são múltiplos dessa vibração fundamental.</p>
 
-        <div class="question-card">
-          <strong>23. Uma onda tem período de 0,50 s e comprimento de onda 10 m. Qual é sua velocidade?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 20 m/s</p>
-            <p>f = 1 / T</p>
-            <p>f = 1 / (1/2) = 2 Hz</p>
-            <p>v = λ . f</p>
-            <p>v = 10 . 2 = 20 m/s</p>
-          </div>
-        </div>
-      </section>
+      <h3>Fórmulas importantes</h3>
+      <div class="formulas">
+        <p class="formula">λ = 2L / n</p>
+        <p class="formula">f = n . v / 2L</p>
+        <p>L = comprimento da corda.</p>
+        <p>n = número do harmônico.</p>
+        <p>v = velocidade da onda.</p>
+        <p>f = frequência.</p>
+      </div>
 
-      <section id="fenomenos">
-        <h2>Fenômenos ondulatórios</h2>
-        <div class="formula-box">
-          <p><strong>Fórmulas importantes</strong></p>
-          <p>Reflexão: o ângulo de incidência é igual ao ângulo de reflexão.</p>
-          <p>Refração: n₁ . sen i = n₂ . sen r</p>
-          <p>Eco: d = v . t / 2</p>
-          <p>Interferência em fase: amplitude resultante = A₁ + A₂</p>
-          <p>i = ângulo de incidência</p>
-          <p>r = ângulo de refração ou reflexão</p>
-          <p>n = índice de refração do meio</p>
-          <p>sen = seno do ângulo</p>
-          <p>d = distância até o obstáculo</p>
-          <p>v = velocidade da onda ou do som</p>
-          <p>t = tempo total de ida e volta</p>
-          <p>A = amplitude</p>
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>18.</strong> Uma corda tem L = 2 m e está no primeiro harmônico. Qual é λ?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 4 m.</p>
+          <p>λ = 2L / n</p>
+          <p>λ = 2 . 2 / 1</p>
+          <p>λ = 4 m</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>24. Um raio incide em um espelho plano com ângulo de 35°. Qual é o ângulo de reflexão?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 35°</p>
-            <p>Na reflexão, o ângulo de incidência é igual ao de reflexão.</p>
-            <p>r = i</p>
-            <p>r = 35°</p>
-          </div>
+      <div class="exercise">
+        <p><strong>19.</strong> Uma corda tem L = 1 m e está no segundo harmônico. Qual é λ?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 1 m.</p>
+          <p>λ = 2L / n</p>
+          <p>λ = 2 . 1 / 2</p>
+          <p>λ = 1 m</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>25. Um som viaja a 340 m/s e o eco é ouvido 2 s depois. Qual é a distância até o obstáculo?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 340 m</p>
-            <p>d = v . t / 2</p>
-            <p>d = 340 . 2 / 2</p>
-            <p>d = 340 m</p>
-          </div>
+      <div class="exercise">
+        <p><strong>20.</strong> Uma corda tem L = 2 m, v = 40 m/s e n = 1. Qual é a frequência?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 10 Hz.</p>
+          <p>f = n . v / 2L</p>
+          <p>f = 1 . 40 / (2 . 2)</p>
+          <p>f = 40 / 4</p>
+          <p>f = 10 Hz</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>26. Dois pulsos em fase têm amplitudes 4 cm e 6 cm. Qual é a amplitude resultante na interferência construtiva?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 10 cm</p>
-            <p>Na interferência construtiva, as amplitudes se somam.</p>
-            <p>A = 4 + 6</p>
-            <p>A = 10 cm</p>
-          </div>
+      <div class="exercise">
+        <p><strong>21.</strong> Uma corda tem L = 1 m, v = 60 m/s e n = 2. Qual é a frequência?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 60 Hz.</p>
+          <p>f = n . v / 2L</p>
+          <p>f = 2 . 60 / (2 . 1)</p>
+          <p>f = 120 / 2</p>
+          <p>f = 60 Hz</p>
         </div>
+      </div>
 
-        <div class="question-card">
-          <strong>27. Dois pulsos opostos têm amplitudes 9 cm e 5 cm. Qual é a amplitude resultante?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 4 cm</p>
-            <p>Na interferência destrutiva, subtraímos as amplitudes.</p>
-            <p>A = 9 - 5</p>
-            <p>A = 4 cm</p>
-          </div>
+      <div class="exercise">
+        <p><strong>22.</strong> Em uma corda fixa nas extremidades, as pontas são nós ou ventres?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Nós.</p>
+          <p>Passo 1: a extremidade fixa não se desloca.</p>
+          <p>Passo 2: ponto que não vibra é chamado nó.</p>
+          <p>Passo 3: portanto, as pontas fixas são nós.</p>
         </div>
+      </div>
+    </section>
 
-        <div class="question-card">
-          <strong>28. Em uma refração, n₁ = 1, sen i = 1, n₂ = 2. Qual é o valor de sen r?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 0,50</p>
-            <p>n₁ . sen i = n₂ . sen r</p>
-            <p>1 . 1 = 2 . sen r</p>
-            <p>sen r = 1 / 2</p>
-            <p>sen r = 1/2</p>
-          </div>
-        </div>
+    <section id="carga-eletrica">
+      <h2>Carga elétrica</h2>
+      <h3>Resumo rápido</h3>
+      <p>A eletricidade começou a ser estudada a partir de observações simples, como materiais atritados atraindo pequenos objetos. Hoje, explicamos isso usando o conceito de carga elétrica.</p>
+      <p>Prótons têm carga positiva. Elétrons têm carga negativa. Nêutrons não têm carga elétrica resultante.</p>
+      <p>Um corpo neutro tem equilíbrio entre cargas positivas e negativas. Um corpo eletrizado tem excesso ou falta de elétrons.</p>
 
-        <div class="question-card">
-          <strong>29. Um eco é ouvido após 4 s. A velocidade do som é 300 m/s. Qual é a distância até a parede?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 600 m</p>
-            <p>d = v . t / 2</p>
-            <p>d = 300 . 4 / 2</p>
-            <p>d = 1200 / 2</p>
-            <p>d = 600 m</p>
-          </div>
-        </div>
+      <h3>Regras importantes</h3>
+      <div class="formulas">
+        <p>Cargas iguais se repelem.</p>
+        <p>Cargas diferentes se atraem.</p>
+        <p>Corpo com excesso de elétrons fica negativo.</p>
+        <p>Corpo com falta de elétrons fica positivo.</p>
+        <p>A carga elétrica total se conserva em um sistema isolado.</p>
+      </div>
 
-        <div class="question-card">
-          <strong>30. Um raio passa do meio 1 para o meio 2. Sabe-se que n₁ = 2, sen i = 0,50 e n₂ = 1. Qual é o valor de sen r?</strong>
-          <button type="button" onclick="toggleAnswer(this)">Mostrar resposta</button>
-          <div class="answer">
-            <p class="final">Resposta: 1</p>
-            <p>n₁ . sen i = n₂ . sen r</p>
-            <p>2 . 1/2 = 1 . sen r</p>
-            <p>1 = sen r</p>
-            <p>sen r = 1</p>
-          </div>
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>23.</strong> Um corpo com excesso de elétrons fica positivo ou negativo?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Negativo.</p>
+          <p>Passo 1: elétrons têm carga negativa.</p>
+          <p>Passo 2: excesso de elétrons significa excesso de carga negativa.</p>
+          <p>Passo 3: o corpo fica negativo.</p>
         </div>
-      </section>
+      </div>
+
+      <div class="exercise">
+        <p><strong>24.</strong> Um corpo que perdeu elétrons fica com qual sinal?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Positivo.</p>
+          <p>Passo 1: elétrons são negativos.</p>
+          <p>Passo 2: ao perder elétrons, sobram mais cargas positivas.</p>
+          <p>Passo 3: o corpo fica positivo.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>25.</strong> Cargas iguais se atraem ou se repelem?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Se repelem.</p>
+          <p>Passo 1: compare os sinais.</p>
+          <p>Passo 2: se os sinais são iguais, a interação é de repulsão.</p>
+          <p>Passo 3: portanto, cargas iguais se afastam.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>26.</strong> Cargas diferentes se atraem ou se repelem?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Se atraem.</p>
+          <p>Passo 1: uma carga positiva e uma negativa têm sinais diferentes.</p>
+          <p>Passo 2: cargas diferentes apresentam atração.</p>
+          <p>Passo 3: elas tendem a se aproximar.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>27.</strong> Um corpo neutro não possui cargas?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Possui cargas, mas em equilíbrio.</p>
+          <p>Passo 1: um corpo neutro tem prótons e elétrons.</p>
+          <p>Passo 2: as quantidades totais de cargas positivas e negativas se equilibram.</p>
+          <p>Passo 3: por isso a carga resultante é nula.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="condutores">
+      <h2>Condutores e isolantes elétricos</h2>
+      <h3>Resumo rápido</h3>
+      <p>Condutores são materiais em que as cargas elétricas se movem com facilidade. Os metais conduzem bem porque possuem elétrons livres.</p>
+      <p>Isolantes são materiais que dificultam o movimento dos elétrons. Neles, os elétrons ficam mais presos aos átomos ou moléculas.</p>
+
+      <h3>Tabela comparativa</h3>
+      <table>
+        <tr>
+          <th>Condutores</th>
+          <th>Isolantes</th>
+        </tr>
+        <tr>
+          <td>Cobre</td>
+          <td>Borracha</td>
+        </tr>
+        <tr>
+          <td>Alumínio</td>
+          <td>Plástico</td>
+        </tr>
+        <tr>
+          <td>Ferro</td>
+          <td>Vidro</td>
+        </tr>
+        <tr>
+          <td>Ouro</td>
+          <td>Madeira seca</td>
+        </tr>
+        <tr>
+          <td>Água com sais</td>
+          <td>Ar seco</td>
+        </tr>
+      </table>
+
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>28.</strong> Por que metais conduzem eletricidade?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Porque possuem elétrons livres.</p>
+          <p>Passo 1: condutores permitem movimento de cargas.</p>
+          <p>Passo 2: nos metais, há elétrons que se movem com facilidade.</p>
+          <p>Passo 3: por isso os metais conduzem bem.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>29.</strong> Borracha é condutor ou isolante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Isolante.</p>
+          <p>Passo 1: isolantes dificultam o movimento dos elétrons.</p>
+          <p>Passo 2: a borracha é um material que dificulta esse movimento.</p>
+          <p>Passo 3: portanto, é isolante.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>30.</strong> Cobre é condutor ou isolante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Condutor.</p>
+          <p>Passo 1: cobre é metal.</p>
+          <p>Passo 2: metais possuem elétrons livres.</p>
+          <p>Passo 3: logo, cobre é condutor.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>31.</strong> Qual é a principal diferença entre condutor e isolante?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> A facilidade de movimento dos elétrons.</p>
+          <p>Passo 1: em condutores, elétrons se movem facilmente.</p>
+          <p>Passo 2: em isolantes, elétrons ficam mais presos.</p>
+          <p>Passo 3: essa é a diferença principal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="eletrizacao">
+      <h2>Processos de eletrização</h2>
+      <h3>Resumo rápido</h3>
+      <p>Eletrização é o processo pelo qual um corpo fica eletrizado. Isso pode ocorrer por atrito, contato ou indução.</p>
+      <p>No atrito, dois corpos são esfregados e há transferência de elétrons. No contato, um corpo eletrizado encosta em outro e as cargas se distribuem. Na indução, não precisa haver contato: ocorre separação de cargas.</p>
+
+      <h3>Tabela comparativa</h3>
+      <table>
+        <tr>
+          <th>Processo</th>
+          <th>Como acontece</th>
+          <th>Resultado comum</th>
+        </tr>
+        <tr>
+          <td>Atrito</td>
+          <td>Dois corpos são esfregados e há transferência de elétrons.</td>
+          <td>Os corpos ficam com cargas opostas.</td>
+        </tr>
+        <tr>
+          <td>Contato</td>
+          <td>Um corpo eletrizado encosta em outro e há divisão de cargas.</td>
+          <td>Os corpos tendem a ficar com cargas de mesmo sinal.</td>
+        </tr>
+        <tr>
+          <td>Indução</td>
+          <td>Não precisa encostar. Ocorre separação de cargas e pode haver aterramento.</td>
+          <td>O corpo pode ficar eletrizado sem contato direto.</td>
+        </tr>
+      </table>
+
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>32.</strong> Na eletrização por atrito, os corpos ficam com cargas de mesmo sinal ou opostas?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Opostas.</p>
+          <p>Passo 1: no atrito, elétrons passam de um corpo para outro.</p>
+          <p>Passo 2: quem ganha elétrons fica negativo.</p>
+          <p>Passo 3: quem perde elétrons fica positivo.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>33.</strong> Na eletrização por contato, é necessário encostar os corpos?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Sim.</p>
+          <p>Passo 1: contato significa encostar.</p>
+          <p>Passo 2: ao encostar, as cargas podem se redistribuir.</p>
+          <p>Passo 3: por isso o toque faz parte do processo.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>34.</strong> Na indução, o corpo eletrizado precisa encostar no corpo neutro?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Não.</p>
+          <p>Passo 1: na indução, há aproximação.</p>
+          <p>Passo 2: essa aproximação separa cargas no corpo neutro.</p>
+          <p>Passo 3: o contato direto não é necessário.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>35.</strong> Um corpo negativo encosta em um corpo neutro. O corpo neutro tende a ficar com qual sinal?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Negativo.</p>
+          <p>Passo 1: o processo é por contato.</p>
+          <p>Passo 2: cargas se redistribuem entre os corpos.</p>
+          <p>Passo 3: o corpo neutro tende a ficar com o mesmo sinal do corpo eletrizado.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>36.</strong> Esfregar uma régua no cabelo é exemplo de qual eletrização?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Eletrização por atrito.</p>
+          <p>Passo 1: a régua e o cabelo são esfregados.</p>
+          <p>Passo 2: há transferência de elétrons.</p>
+          <p>Passo 3: isso caracteriza eletrização por atrito.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>37.</strong> Qual processo pode eletrizar um corpo sem contato direto?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Indução.</p>
+          <p>Passo 1: indução ocorre por aproximação.</p>
+          <p>Passo 2: as cargas se separam no corpo induzido.</p>
+          <p>Passo 3: com aterramento, o corpo pode ficar eletrizado.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="eletroscopios">
+      <h2>Eletroscópios</h2>
+      <h3>Resumo rápido</h3>
+      <p>O eletroscópio é um instrumento usado para detectar se um corpo está eletrizado. Ele geralmente possui uma haste metálica ligada a folhas metálicas leves.</p>
+      <p>Quando as folhas ficam com cargas de mesmo sinal, elas se repelem e se afastam. Por isso, o afastamento das folhas indica presença de eletrização ou redistribuição de cargas.</p>
+      <p>Ao aproximar um corpo eletrizado, as cargas no eletroscópio podem se separar, causando abertura das folhas.</p>
+
+      <h3>Fórmulas importantes</h3>
+      <div class="formulas">
+        <p>Não há uma fórmula principal para o eletroscópio neste nível.</p>
+        <p>A regra importante é: cargas iguais se repelem.</p>
+      </div>
+
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>38.</strong> Para que serve um eletroscópio?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Para detectar eletrização.</p>
+          <p>Passo 1: aproximamos ou tocamos um corpo no eletroscópio.</p>
+          <p>Passo 2: as cargas se redistribuem.</p>
+          <p>Passo 3: se as folhas se abrem, há efeito elétrico.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>39.</strong> Por que as folhas do eletroscópio se afastam?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Porque ficam com cargas de mesmo sinal e se repelem.</p>
+          <p>Passo 1: as folhas recebem cargas semelhantes.</p>
+          <p>Passo 2: cargas iguais se repelem.</p>
+          <p>Passo 3: as folhas se afastam.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>40.</strong> Um eletroscópio mede com precisão o valor da carga?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Não neste estudo básico.</p>
+          <p>Passo 1: o eletroscópio indica presença de eletrização.</p>
+          <p>Passo 2: a abertura das folhas mostra interação elétrica.</p>
+          <p>Passo 3: ele não é usado aqui para medir valor exato da carga.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>41.</strong> Aproximar um corpo eletrizado pode abrir as folhas mesmo sem tocar?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Sim.</p>
+          <p>Passo 1: a aproximação pode causar indução.</p>
+          <p>Passo 2: as cargas no eletroscópio se separam.</p>
+          <p>Passo 3: as folhas podem ficar com mesmo sinal e se afastar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="forca-eletrica">
+      <h2>Força elétrica</h2>
+      <h3>Resumo rápido</h3>
+      <p>Força elétrica é a interação entre cargas elétricas. Ela pode ser de atração ou de repulsão.</p>
+      <p>A força é de repulsão quando as cargas têm mesmo sinal. A força é de atração quando as cargas têm sinais diferentes.</p>
+      <p>Pela Lei de Coulomb, a força aumenta quando os valores das cargas aumentam e diminui quando a distância entre as cargas aumenta.</p>
+
+      <h3>Fórmula importante</h3>
+      <div class="formulas">
+        <p class="formula">F = k . |q1 . q2| / d²</p>
+        <p>F = força elétrica.</p>
+        <p>k = constante eletrostática.</p>
+        <p>q1 = primeira carga.</p>
+        <p>q2 = segunda carga.</p>
+        <p>d = distância entre as cargas.</p>
+        <p>Use: k = 9 . 10⁹ N.m²/C².</p>
+      </div>
+
+      <h3>Exercícios</h3>
+      <div class="exercise">
+        <p><strong>42.</strong> Duas cargas positivas se atraem ou se repelem?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Se repelem.</p>
+          <p>Passo 1: as duas cargas têm o mesmo sinal.</p>
+          <p>Passo 2: cargas iguais se repelem.</p>
+          <p>Passo 3: a força é de repulsão.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>43.</strong> Uma carga positiva e uma negativa se atraem ou se repelem?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Se atraem.</p>
+          <p>Passo 1: os sinais são diferentes.</p>
+          <p>Passo 2: cargas diferentes se atraem.</p>
+          <p>Passo 3: a força é de atração.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>44.</strong> Duas cargas têm q1 = 1 C, q2 = 2 C e d = 3 m. Usando k = 9 . 10⁹, calcule F.</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 2 . 10⁹ N.</p>
+          <p>F = k . |q1 . q2| / d²</p>
+          <p>F = 9 . 10⁹ . |1 . 2| / 3²</p>
+          <p>F = 18 . 10⁹ / 9</p>
+          <p>F = 2 . 10⁹ N</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>45.</strong> Duas cargas têm q1 = 2 C, q2 = 2 C e d = 2 m. Usando k = 9 . 10⁹, calcule F.</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 9 . 10⁹ N.</p>
+          <p>F = k . |q1 . q2| / d²</p>
+          <p>F = 9 . 10⁹ . |2 . 2| / 2²</p>
+          <p>F = 9 . 10⁹ . 4 / 4</p>
+          <p>F = 9 . 10⁹ N</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>46.</strong> Se a distância entre duas cargas dobra, a força elétrica aumenta ou diminui?</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> Diminui.</p>
+          <p>Passo 1: na Lei de Coulomb, a distância fica no denominador.</p>
+          <p>Passo 2: a distância aparece elevada ao quadrado.</p>
+          <p>Passo 3: aumentando a distância, a força diminui.</p>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p><strong>47.</strong> Duas cargas têm q1 = 1 C, q2 = 1 C e d = 1 m. Usando k = 9 . 10⁹, calcule F.</p>
+        <button onclick="toggleAnswer(this)">Mostrar resposta</button>
+        <div class="answer">
+          <p><strong>Resposta:</strong> 9 . 10⁹ N.</p>
+          <p>F = k . |q1 . q2| / d²</p>
+          <p>F = 9 . 10⁹ . |1 . 1| / 1²</p>
+          <p>F = 9 . 10⁹ . 1 / 1</p>
+          <p>F = 9 . 10⁹ N</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="resumo-final">
+      <h2>Resumo final</h2>
+      <ul>
+        <li>Difração: onda contorna obstáculos.</li>
+        <li>Interferência construtiva: amplitudes se somam.</li>
+        <li>Interferência destrutiva: amplitudes se reduzem.</li>
+        <li>Som precisa de meio material.</li>
+        <li>v = λ . f.</li>
+        <li>Som agudo tem maior frequência.</li>
+        <li>Som grave tem menor frequência.</li>
+        <li>Cargas iguais se repelem.</li>
+        <li>Cargas diferentes se atraem.</li>
+        <li>Condutores têm elétrons livres.</li>
+        <li>Isolantes dificultam o movimento dos elétrons.</li>
+        <li>Atrito gera cargas opostas.</li>
+        <li>Contato gera cargas de mesmo sinal.</li>
+        <li>Indução ocorre sem contato.</li>
+        <li>Eletroscópio detecta eletrização.</li>
+        <li>Força elétrica aumenta com cargas maiores.</li>
+        <li>Força elétrica diminui quando a distância aumenta.</li>
+      </ul>
+    </section>
+
     </main>
 
     <footer>
-      <p>Outros sites</p>
-      <div class="footer-links">
-        <a href="https://atlaswebsite.github.io/AtlasVitrine/" target="_blank" rel="noopener noreferrer">Atlas Vitrine</a>
-        <a href="https://atlaswebsite.github.io/Atlasweb/" target="_blank" rel="noopener noreferrer">Atlas Web</a>
-      </div>
+      <h2>Outros sites</h2>
+      <a href="https://atlaswebsite.github.io/AtlasVitrine/" target="_blank" rel="noopener noreferrer">Atlas Vitrine</a>
+      <a href="https://atlaswebsite.github.io/Atlasweb/" target="_blank" rel="noopener noreferrer">Atlas Web</a>
     </footer>
   </div>
 
   <script>
     function toggleAnswer(button) {
       var answer = button.nextElementSibling;
-      var showing = answer.style.display === "block";
-      answer.style.display = showing ? "none" : "block";
-      button.textContent = showing ? "Mostrar resposta" : "Esconder resposta";
+      if (answer.style.display === "block") {
+        answer.style.display = "none";
+        button.textContent = "Mostrar resposta";
+      } else {
+        answer.style.display = "block";
+        button.textContent = "Esconder resposta";
+      }
     }
   </script>
 </body>
